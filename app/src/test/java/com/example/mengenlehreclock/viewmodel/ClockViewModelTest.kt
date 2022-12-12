@@ -28,14 +28,14 @@ class ClockViewModelTest {
     //we are just testing viewmodel, not actual clock values, but putting 24/12 here so I don't forget later
     @Test
     fun `viewmodel specific 24 hour clock value`() {
-        val time = "23: 56: 01"
+        val time = "23:56:01"
         viewModel.onTimeChange(time)
         Assert.assertEquals(viewModel.data.value, getSpecific24ClockData())
     }
 
     @Test
     fun `viewmodel specific 12 clock value`() {
-        val time = "12: 03: 00 AM"
+        val time = "12:03:00 AM"
         viewModel.onTimeChange(time)
         Assert.assertEquals(viewModel.data.value, getSpecific12ClockData())
     }
