@@ -7,6 +7,9 @@ import org.junit.Test
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.mengenlehreclock.MLClock
 import com.example.mengenlehreclock.model.ClockData
+import com.example.mengenlehreclock.model.ClockData.Companion.OUT
+import com.example.mengenlehreclock.model.ClockData.Companion.RED
+import com.example.mengenlehreclock.model.ClockData.Companion.YELLOW
 
 
 class ClockViewModelTest {
@@ -18,7 +21,7 @@ class ClockViewModelTest {
     private lateinit var viewModel: ClockViewModel
 
     @Before
-    fun setup(){
+    fun setup() {
         viewModel = ClockViewModel(clock)
     }
 
@@ -38,20 +41,40 @@ class ClockViewModelTest {
     }
 
 
-    private fun getSpecific12ClockData() : ClockData {
-        val fiveHourRow = null
-        val lastHourRow = null
-        val fiftyFiveMinuteRow = null
-        val lastMinuteRow = null
-        return ClockData( fiveHourRow = fiveHourRow, lastHourRow = lastHourRow, fiftyFiveMinuteRow = fiftyFiveMinuteRow, lastMinuteRow = lastMinuteRow, secondsCircle = null)
+    private fun getSpecific12ClockData(): ClockData {
+        val fiveHourRow = listOf(RED, RED, RED, RED)
+        val lastHourRow = listOf(RED, RED, RED, RED)
+        val fiftyFiveMinuteRow =
+            listOf(OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT)
+        val lastMinuteRow = listOf(YELLOW, YELLOW, YELLOW, OUT)
+        return ClockData(
+            fiveHourRow = fiveHourRow,
+            lastHourRow = lastHourRow,
+            fiftyFiveMinuteRow = fiftyFiveMinuteRow,
+            lastMinuteRow = lastMinuteRow,
+            secondsCircle = YELLOW
+        )
     }
 
-    private fun getSpecific24ClockData() : ClockData {
-        val fiveHourRow = null
-        val lastHourRow = null
-        val fiftyFiveMinuteRow = null
-        val lastMinuteRow = null
-        return ClockData( fiveHourRow = fiveHourRow, lastHourRow = lastHourRow, fiftyFiveMinuteRow = fiftyFiveMinuteRow, lastMinuteRow = lastMinuteRow, secondsCircle = null)
+    private fun getSpecific24ClockData(): ClockData {
+        val fiveHourRow = listOf(RED, RED, RED, RED)
+        val lastHourRow = listOf(RED, RED, RED, OUT)
+        val fiftyFiveMinuteRow =
+            listOf(YELLOW, YELLOW, RED, YELLOW, YELLOW, RED, YELLOW, YELLOW, RED, YELLOW, YELLOW)
+        val lastMinuteRow = listOf(YELLOW, OUT, OUT, OUT)
+        return ClockData(
+            fiveHourRow = fiveHourRow,
+            lastHourRow = lastHourRow,
+            fiftyFiveMinuteRow = fiftyFiveMinuteRow,
+            lastMinuteRow = lastMinuteRow,
+            secondsCircle = OUT
+        )
     }
 
+    @Test //note sure if this would be doable/useful
+    fun `viewmodel random clock values iterate`() {
+        //Assemble
+        //Act
+        //Assert
+    }
 }
