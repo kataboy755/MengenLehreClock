@@ -25,19 +25,18 @@ class ClockViewModelTest {
         viewModel = ClockViewModel(clock)
     }
 
-    //we are just testing viewmodel, not actual clock values, but putting 24/12 here so I don't forget later
     @Test
-    fun `viewmodel specific 24 hour clock value`() {
-        val time = "23:56:01"
+    fun `viewmodel specific hour clock value 1`() {
+        val time = "11:56:01 PM"
         viewModel.onTimeChange(time)
-        Assert.assertEquals(viewModel.data.value, getSpecific24ClockData())
+        Assert.assertEquals(getSpecific24ClockData(), viewModel.data.value)
     }
 
     @Test
-    fun `viewmodel specific 12 clock value`() {
+    fun `viewmodel specific clock value 2`() {
         val time = "12:03:00 AM"
         viewModel.onTimeChange(time)
-        Assert.assertEquals(viewModel.data.value, getSpecific12ClockData())
+        Assert.assertEquals(getSpecific12ClockData(), viewModel.data.value)
     }
 
 
@@ -71,10 +70,4 @@ class ClockViewModelTest {
         )
     }
 
-    @Test //note sure if this would be doable/useful
-    fun `viewmodel random clock values iterate`() {
-        //Assemble
-        //Act
-        //Assert
-    }
 }

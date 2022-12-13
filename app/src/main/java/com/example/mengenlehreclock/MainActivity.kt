@@ -1,6 +1,7 @@
 package com.example.mengenlehreclock
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextClock
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,7 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -20,8 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.doOnTextChanged
@@ -45,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    observeViewModel(viewModel)
+                    ObserveViewModel(viewModel)
                 }
             }
         }
@@ -53,7 +51,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun observeViewModel(viewModel: ClockViewModel) {
+fun ObserveViewModel(viewModel: ClockViewModel) {
     val data: ClockData by viewModel.data.observeAsState(initial = ClockData.initData())
     Clock(data = data, onTimeChange = { viewModel.onTimeChange(it) })
 }
@@ -98,14 +96,13 @@ fun Clock(data: ClockData, onTimeChange: (String) -> Unit) {
                     TextClock(
                         context,
                     ).apply {
+                        format12Hour?.let { this.format12Hour = " hh:mm:ss aa" }
+                        format24Hour?.let { this.format24Hour = " HH:mm:ss" }
+                        textSize.let { this.textSize = 50f }
                         doOnTextChanged { time, _, _, _ ->
+                            Log.d("MainActivity","time passed by textclock: $time")
                             onTimeChange(time.toString().trim())
                         }
-                        format12Hour?.let { this.format12Hour = " hh:mm:ss a" }
-                        format24Hour?.let { this.format24Hour = " hh:mm:ss" }
-                        textSize.let { this.textSize = 50f }
-
-
                     }
                 }
             )
