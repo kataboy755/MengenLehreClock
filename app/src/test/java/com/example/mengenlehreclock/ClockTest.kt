@@ -4,10 +4,17 @@ import com.example.mengenlehreclock.model.ClockData.Companion.OUT
 import com.example.mengenlehreclock.model.ClockData.Companion.RED
 import com.example.mengenlehreclock.model.ClockData.Companion.YELLOW
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
+import java.util.*
 
 class ClockTest {
     private val clock = MLClock()
+
+    @Before
+    fun setup() {
+        Locale.setDefault(Locale.US)
+    }
 
     @Test
     fun `clock even seconds should return color`() {
@@ -242,23 +249,12 @@ class ClockTest {
     }
 
     @Test
-    fun `clock 24 hours should return color`() {
-        val temp = clock.getMLClock("12:00:00 AM")
-        val actual1 = temp.lastHourRow
-        val actual2 = temp.fiveHourRow
-        val expected1 = listOf(RED, RED, RED, RED)
-        val expected2 = listOf(RED, RED, RED, RED)
-        Assert.assertEquals(expected1, actual1)
-        Assert.assertEquals(expected2, actual2)
-    }
-
-    @Test
     fun `clock during midnight`() {
         val temp = clock.getMLClock("12:00:00 AM")
         val actual1 = temp.lastHourRow
         val actual2 = temp.fiveHourRow
-        val expected1 = listOf(RED, RED, RED, RED)
-        val expected2 = listOf(RED, RED, RED, RED)
+        val expected1 = listOf(OUT, OUT, OUT, OUT)
+        val expected2 = listOf(OUT, OUT, OUT, OUT)
         Assert.assertEquals(expected1, actual1)
         Assert.assertEquals(expected2, actual2)
     }
@@ -281,7 +277,7 @@ class ClockTest {
         val actual4 = temp.lastMinuteRow
         val actual5 = temp.secondsCircle
 
-        val expected1 = listOf(RED, RED, RED, RED)
+        val expected1 = listOf(RED, RED, RED, OUT)
         val expected2 = listOf(RED, RED, RED, RED)
         val expected3 = listOf(YELLOW, YELLOW, RED, YELLOW, YELLOW, RED, YELLOW, YELLOW, RED, YELLOW, YELLOW)
         val expected4 = listOf(YELLOW, YELLOW, YELLOW, YELLOW)
